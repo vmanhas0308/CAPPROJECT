@@ -1,0 +1,118 @@
+###Get the details of service document
+http://localhost:4004/odata/v4/CatalogService/
+
+
+
+
+###Get Service metadata
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+
+###Get All the records of employee
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+
+
+
+
+###Get data chunk by chunk - pagination
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2&$skip=3
+
+
+###Get the count of records
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/$count
+
+
+###Single Employee Record by its KEY
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C19807FB
+
+
+###Filter data by using $filter
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=bankName eq 'My Bank of New York'
+
+
+###Case filtering
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=contains(nameFirst, 'na')
+
+###Gender Female filtering
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=sex eq 'F'
+
+###Post data - save data using service
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+
+
+{
+      "nameFirst": "Christiano",
+      "nameMiddle": "",
+      "nameLast": "Rolando",
+      "nameInitials": null,
+      "sex": "M",
+      "language": "P",
+      "phoneNumber": null,
+      "email": "a@gmail.com",
+      "loginName": "RONALDOCH",
+      "Currency_code": "EUR",
+      "salaryAmount": 999999,
+      "accountNumber": "5566778899",
+      "bankId": "26005885",
+      "bankName": "RBS Bank"
+}
+
+
+###Get the data of new employee - COPY THE ID FROM LAST CALL MANUALLY
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/63fbb416-183a-4114-88c7-4a1f8f9eeca4
+
+
+###PATCH - used to update data
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/63fbb416-183a-4114-88c7-4a1f8f9eeca4
+Content-Type: application/json
+
+
+{
+    "salaryAmount": 100000
+}
+
+
+###DELETE - Remove data from DB
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/63fbb416-183a-4114-88c7-4a1f8f9eeca4
+
+###Test the V2 response
+http://localhost:4004/odata/v2/CatalogService/EmployeeSet
+
+###Lazy loading concept
+http://localhost:4004/odata/v2/CatalogService/CDSSet
+
+###Lazy loading concept
+http://localhost:4004/odata/v2/CatalogService/CDSSet('74867AD200E41EDBA5D8B06B26EB6052')?$expand=To_Items
+
+
+###Get the PO Data
+ http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2A052
+
+
+###Calling the action on PO
+POST http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2A052/boost
+Content-Type: application/json
+
+
+{}
+
+###Call the function
+http://localhost:4004/odata/v4/CatalogService/getLargestOrder()
+
+
+###
+http://localhost:4004/odata/v4/MyService/EmployeeSrv
+
+
+###
+POST http://localhost:4004/odata/v4/MyService/EmployeeSrv
+Content-Type: application/json
+
+
+{
+    "nameFirst": "Anil",
+    "nameLast": "Kapoor",
+    "loginName": "Zkas"
+}
+

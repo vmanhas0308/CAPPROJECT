@@ -1,0 +1,2 @@
+
+using from './mypoapp/annotations';
