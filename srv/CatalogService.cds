@@ -30,12 +30,17 @@ service CatalogService @(path: 'CatalogService') {
             when 'X' then 1
                 end as IconColor: Integer        
     }
-    //instance bound action
+      //instance bound action
     actions{
+        @Common.SideEffects: {
+            TargetProperties : [
+                'in/GROSS_AMOUNT'
+            ],
+        }
         action boost() returns POs;
     };
-    entity POItems as projection on transaction.poitems;
 
+    entity POItems as projection on transaction.poitems;
 
     function getLargestOrder() returns POs;
     function loadInitials() returns POs;
