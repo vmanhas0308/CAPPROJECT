@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: mycapapp
 version: 1.0.0
-description: "A simple CAP project."
+description: "Bosch CAP Application"
 parameters:
   enable-parallel-deployments: true
 build-parameters:
@@ -11,6 +11,25 @@ build-parameters:
         - npm ci
         - npx cds build --production
 modules:
+  - name: mycapapp-ui
+    type: nodejs
+    path: app
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    requires:
+      - name: mycapapp-auth
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          strictSSL: true
+          forwardAuthToken: true
+          url: '~{srv-url}'
+
+
   - name: mycapapp-srv
     type: nodejs
     path: gen/srv
@@ -27,6 +46,7 @@ modules:
       - name: mycapapp-db
       - name: mycapapp-auth
 
+
   - name: mycapapp-db-deployer
     type: hdb
     path: gen/db
@@ -34,6 +54,7 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: mycapapp-db
+
 
 resources:
   - name: mycapapp-db
